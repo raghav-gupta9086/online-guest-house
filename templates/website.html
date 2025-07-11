@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>Guest House</title>
+<link rel="icon" type="image/x-icon" href="C:\Users\User\Desktop\HTML\Executive.PNG">
+<style>
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+background: lightblue;
+}
+.header {
+background-color: lightyellow;
+padding: 20px;
+border-radius: 10px;
+margin: 20px;
+box-shadow: 0 4px 8px gray;
+}
+.header h1 {
+margin: 0;
+font-size: 45px;
+color: blue;
+}
+.header h1 span {
+color: goldenrod;
+font-size: 25px;
+}
+.subheading {
+font-size: 25px;
+margin-top: 5px;
+color: darkgray;
+}
+.navbar {
+background-color: pink;
+padding: 10px;
+text-align: center;
+font-size: 18px;
+}
+.navbar a {
+color: black;
+text-decoration: none;
+margin: 0 10px;
+font-weight: bold;
+}
+.navbar a:hover {
+color: red;
+text-decoration: underline;
+}
+section {
+background-color: white;
+margin: 20px;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 2px 5px lightgray;
+}
+h2, h3 {
+color: navy;
+}
+p {
+font-size: 16px;
+line-height: 1.6;
+}
+img {
+width: 100%;
+max-width: 500px;
+border-radius: 10px;
+margin: 10px 0;
+}
+.room-link {
+display: inline-block;
+margin-bottom: 20px;
+background-color: dodgerblue;
+color: white;
+padding: 10px 20px;
+border-radius: 5px;
+text-decoration: none;
+font-weight: bold;
+}
+.room-link:hover {
+background-color: blue;
+}
+hr {
+border: 0;
+height: 1px;
+background: gray;
+margin: 40px 0;
+}
+.registration {
+text-align: center;
+font-size: 20px;
+margin: 40px 0;
+}
+.registration a {
+color: darkred;
+text-decoration: none;
+font-weight: bold;
+}
+.registration a:hover {
+text-decoration: underline;
+}
+</style>
+</head>
+<body>
+<div class="header">
+<h1><i>Raghav Guest House</i> <span>★★★</span></h1>
+<div class="subheading">Resort & Convention</div>
+</div>
+<div class="navbar">
+<a href="#top">Home</a> |
+<a href="#about">About</a> |
+<a href="#rooms">Rooms</a> |
+<a href="#contact">Contact</a>
+</div>
+<section id="about">
+<h2>About Our Rooms</h2>
+<p><strong>Raghav Guest House</strong> offers well-furnished and comfortable rooms designed for both leisure and business travelers. Every room is equipped with modern amenities to ensure a relaxing and productive stay.</p>
+</section>
+<section id="rooms">
+<h2>Room Types</h2>
+<h3>Simple Room</h3>
+<img src="{{ url_for('static', filename='Standard.PNG') }}" alt="Standard Room">
+<a class="room-link" href="#simple-info">Read More</a>
+<h3>Executive Room</h3>
+<img src="{{ url_for('static', filename='Executive.PNG') }}" alt="Executive Room">
+<h3>Deluxe Suite</h3>
+<img src="{{ url_for('static', filename='Delux.PNG') }}" alt="Deluxe Room">
+<a class="room-link" href="#deluxe-info">Read More</a>
+</section>
+<section id="simple-info">
+<h2>Simple Room Details</h2>
+<p>The Simple Room is perfect for budget travelers. It includes a single bed, clean bathroom, and basic furniture. Suitable for solo guests or short stays. Includes fan, attached bathroom, and housekeeping.</p>
+</section>
+<section id="executive-info">
+<h2>Executive Room Details</h2>
+<p>The Executive Room offers a comfortable queen-sized bed, air conditioning, LCD TV, working desk, and premium bathroom. Ideal for business travelers and couples.</p>
+</section>
+<section id="deluxe-info">
+<h2>Deluxe Suite Details</h2>
+<p>The Deluxe Suite is a luxury stay option featuring a king-sized bed, sofa set, balcony view, mini-fridge, wardrobe, and 24/7 service. Perfect for long stays or families.</p>
+</section>
+
+<div class="registration">
+<strong>Registration:</strong>
+<a <a href="{{ url_for('register') }}" target="_blank">Click Here to Book</a>
+</div>
+
+</body>
+</html>

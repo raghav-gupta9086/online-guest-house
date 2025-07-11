@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Bookings</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+        }
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+        }
+        th {
+            background-color: #0077cc;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .action-btn {
+            padding: 6px 12px;
+            margin: 2px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+        }
+        .edit-btn {
+            background-color: green;
+        }
+        .delete-btn {
+            background-color: red;
+        }
+        .logout-link {
+            margin-top: 20px;
+            display: inline-block;
+            text-decoration: none;
+            font-weight: bold;
+            color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <h1>All Guest Bookings</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Gender</th>
+            <th>Hobby</th>
+            <th>Check-In</th>
+            <th>Check-Out</th>
+            <th>Actions</th>
+        </tr>
+        {% for booking in bookings %}
+        <tr>
+            <td>{{ booking[0] }}</td>
+            <td>{{ booking[1] }}</td>
+            <td>{{ booking[2] }}</td>
+            <td>{{ booking[3] }}</td>
+            <td>{{ booking[4] }}</td>
+            <td>{{ booking[5] }}</td>
+            <td>{{ booking[6] }}</td>
+            <td>{{ booking[7] }}</td>
+            <td>
+                <a href="/edit/{{ booking[0] }}"><button class="action-btn edit-btn">Edit</button></a>
+                <a href="/delete/{{ booking[0] }}" onclick="return confirm('Are you sure to delete this booking?')">
+                    <button class="action-btn delete-btn">Delete</button>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a class="logout-link" href="/logout">Logout</a>
+</body>
+</html>

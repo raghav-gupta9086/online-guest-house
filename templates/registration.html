@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>Registration Form</title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Executive.PNG') }}">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #dceefb, #f0fff4);
+      margin: 0;
+      padding: 0;
+    }
+    #registration {
+      background-color: #ffffff;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      color: darkblue;
+      margin-bottom: 30px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="file"],
+    input[type="password"],
+    input[type="date"],
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    input[type="radio"],
+    input[type="checkbox"] {
+      margin-right: 8px;
+    }
+    .radio-group,
+    .yesno-group {
+      margin-bottom: 20px;
+    }
+    .radio-group label,
+    .yesno-group label {
+      display: inline-block;
+      margin-right: 20px;
+    }
+    input[type="submit"],
+    input[type="button"] {
+      padding: 12px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    input[type="submit"] {
+      background-color: darkgreen;
+      color: white;
+      margin-right: 10px;
+    }
+    input[type="button"] {
+      background-color: blue;
+      color: white;
+    }
+    h3 {
+      background-color: pink;
+      padding: 10px;
+      text-align: center;
+      color: darkred;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="registration">
+    <h2>Room Booking Form</h2>
+    
+    <!-- Booking Form -->
+    <form action="/submit" method="POST" enctype="multipart/form-data">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+      <label for="phone">Contact Number:</label>
+      <input type="number" id="phone" name="phone" placeholder="Enter your contact number" required>
+
+      <label for="file_upload">Upload File (optional):</label>
+      <input type="file" id="file_upload" name="file_upload">
+
+      <label>Select Gender:</label>
+      <div class="radio-group">
+        <input type="radio" id="male" name="gender" value="male" required>
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="female" required>
+        <label for="female">Female</label>
+      </div>
+
+      <label for="hobby">Select Your Hobby:</label>
+      <select id="hobby" name="hobby" required>
+        <option value="">Select Hobby</option>
+        <option value="reading">Reading</option>
+        <option value="traveling">Traveling</option>
+        <option value="music">Music</option>
+        <option value="sports">Sports</option>
+      </select>
+
+      <label for="checkin">Check-In Date:</label>
+      <input type="date" id="checkin" name="checkin" required>
+
+      <label for="checkout">Check-Out Date:</label>
+      <input type="date" id="checkout" name="checkout" required>
+
+      <input type="checkbox" id="agree" name="agree" required>
+      <label for="agree">I agree to the terms and conditions</label><br><br>
+
+      <input type="submit" value="Book Now">
+    </form>
+
+    <!-- Admin Login Section -->
+    <h3>Only for Admin Login</h3>
+    <form action="/login" method="POST">
+      <label for="username">Admin Username:</label>
+      <input type="text" id="username" name="username" placeholder="Enter username" required>
+
+      <label for="password">Admin Password:</label>
+      <input type="password" id="password" name="password" placeholder="Enter password" required>
+
+      <input type="submit" value="Login">
+    </form>
+  </div>
+</body>
+</html>
