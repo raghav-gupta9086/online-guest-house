@@ -4,7 +4,6 @@ import mysql.connector
 app = Flask(__name__)
 app.secret_key = 'mysecretkey123'  
 
-# 🔗 Function to get MySQL connection
 def get_db_connection():
     return mysql.connector.connect(
         host="localhost",
@@ -13,16 +12,13 @@ def get_db_connection():
         database="guesthouse"
     )
 
-
 @app.route('/')
 def website():
     return render_template('website.html')
 
-
 @app.route('/register')
 def register():
     return render_template('registration.html')
-
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -41,15 +37,14 @@ def submit():
     conn.commit()
     conn.close()
 
-    return f"""
-    <h2>Thank you, {name}!</h2>
-    <p>Email: {email}</p>
-    <p>Phone: {phone}</p>
-    <br>
-    <a href="/" style="padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">Back to Home</a>
-    &nbsp;
-    <a href="/register" style="padding: 10px 20px; background-color: #2196F3; color: white; text-decoration: none; border-radius: 5px;">New Booking</a>
-    """
+    return render_template('confirmation.html',
+                           name=name,
+                           email=email,
+                           phone=phone,
+                           gender=gender,
+                           hobby=hobby,
+                           checkin=checkin,
+                           checkout=checkout)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -76,6 +71,7 @@ def view_bookings():
     data = c.fetchall()
     conn.close()
     return render_template('view_bookings.html', bookings=data)
+
 
 @app.route('/delete/<int:id>')
 def delete_booking(id):
@@ -107,9 +103,9 @@ def edit_booking(id):
         checkout = request.form['checkout']
 
         c.execute('''UPDATE bookings SET
-                    name = %s, email = %s, phone = %s,
-                    gender = %s, hobby = %s, checkin = %s, checkout = %s
-                    WHERE id = %s''',
+                     name = %s, email = %s, phone = %s,
+                     gender = %s, hobby = %s, checkin = %s, checkout = %s
+                     WHERE id = %s''',
                   (name, email, phone, gender, hobby, checkin, checkout, id))
         conn.commit()
         conn.close()
@@ -119,6 +115,7 @@ def edit_booking(id):
     booking = c.fetchone()
     conn.close()
     return render_template('edit_booking.html', booking=booking)
+
 
 @app.route('/logout')
 def logout():
