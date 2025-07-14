@@ -1,20 +1,29 @@
 ﻿from flask import Flask, render_template, request, url_for, redirect, session
-import sqlite3
+import mysql.connector
 
 app = Flask(__name__)
-app.secret_key = 'mysecretkey123'  # Required for session
+app.secret_key = 'mysecretkey123'  
 
-# Home page
+# 🔗 Function to get MySQL connection
+def get_db_connection():
+    return mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="",  
+        database="guesthouse"
+    )
+
+
 @app.route('/')
 def website():
     return render_template('website.html')
 
-# Registration form
+
 @app.route('/register')
 def register():
     return render_template('registration.html')
 
-# Submit booking form
+
 @app.route('/submit', methods=['POST'])
 def submit():
     name = request.form['name']
@@ -25,20 +34,23 @@ def submit():
     checkin = request.form['checkin']
     checkout = request.form['checkout']
 
-    conn = sqlite3.connect('guesthouse.db')
+    conn = get_db_connection()
     c = conn.cursor()
-    c.execute('''CREATE TABLE IF NOT EXISTS bookings (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT, email TEXT, phone TEXT,
-        gender TEXT, hobby TEXT, checkin TEXT, checkout TEXT)''')
-    c.execute("INSERT INTO bookings (name, email, phone, gender, hobby, checkin, checkout) VALUES (?, ?, ?, ?, ?, ?, ?)",
+    c.execute("INSERT INTO bookings (name, email, phone, gender, hobby, checkin, checkout) VALUES (%s, %s, %s, %s, %s, %s, %s)",
               (name, email, phone, gender, hobby, checkin, checkout))
     conn.commit()
     conn.close()
 
-    return f"<h2>Thank you, {name}!</h2><p>Email: {email}</p><p>Phone: {phone}</p>"
+    return f"""
+    <h2>Thank you, {name}!</h2>
+    <p>Email: {email}</p>
+    <p>Phone: {phone}</p>
+    <br>
+    <a href="/" style="padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">Back to Home</a>
+    &nbsp;
+    <a href="/register" style="padding: 10px 20px; background-color: #2196F3; color: white; text-decoration: none; border-radius: 5px;">New Booking</a>
+    """
 
-# ✅ Admin login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -53,39 +65,36 @@ def login():
 
     return render_template('login.html')
 
-# ✅ View all bookings (admin only)
 @app.route('/view-bookings')
 def view_bookings():
     if not session.get('admin'):
         return redirect('/login')
 
-    conn = sqlite3.connect('guesthouse.db')
+    conn = get_db_connection()
     c = conn.cursor()
     c.execute("SELECT * FROM bookings")
     data = c.fetchall()
     conn.close()
     return render_template('view_bookings.html', bookings=data)
 
-# ✅ Delete booking
 @app.route('/delete/<int:id>')
 def delete_booking(id):
     if not session.get('admin'):
         return redirect('/login')
 
-    conn = sqlite3.connect('guesthouse.db')
+    conn = get_db_connection()
     c = conn.cursor()
-    c.execute("DELETE FROM bookings WHERE id = ?", (id,))
+    c.execute("DELETE FROM bookings WHERE id = %s", (id,))
     conn.commit()
     conn.close()
     return redirect('/view-bookings')
 
-# ✅ Edit booking
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])
 def edit_booking(id):
     if not session.get('admin'):
         return redirect('/login')
 
-    conn = sqlite3.connect('guesthouse.db')
+    conn = get_db_connection()
     c = conn.cursor()
 
     if request.method == 'POST':
@@ -98,25 +107,23 @@ def edit_booking(id):
         checkout = request.form['checkout']
 
         c.execute('''UPDATE bookings SET
-                    name = ?, email = ?, phone = ?,
-                    gender = ?, hobby = ?, checkin = ?, checkout = ?
-                    WHERE id = ?''',
+                    name = %s, email = %s, phone = %s,
+                    gender = %s, hobby = %s, checkin = %s, checkout = %s
+                    WHERE id = %s''',
                   (name, email, phone, gender, hobby, checkin, checkout, id))
         conn.commit()
         conn.close()
         return redirect('/view-bookings')
 
-    c.execute("SELECT * FROM bookings WHERE id = ?", (id,))
+    c.execute("SELECT * FROM bookings WHERE id = %s", (id,))
     booking = c.fetchone()
     conn.close()
     return render_template('edit_booking.html', booking=booking)
 
-# ✅ Logout
 @app.route('/logout')
 def logout():
     session.pop('admin', None)
     return redirect('/')
 
-# Run Flask app
 if __name__ == '__main__':
     app.run(debug=True)
