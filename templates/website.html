@@ -111,37 +111,74 @@ text-decoration: underline;
 <a href="#rooms">Rooms</a> |
 <a href="#contact">Contact</a>
 </div>
+
 <section id="about">
 <h2>About Our Rooms</h2>
 <p><strong>Raghav Guest House</strong> offers well-furnished and comfortable rooms designed for both leisure and business travelers. Every room is equipped with modern amenities to ensure a relaxing and productive stay.</p>
 </section>
+
 <section id="rooms">
 <h2>Room Types</h2>
+
 <h3>Simple Room</h3>
 <img src="{{ url_for('static', filename='Standard.PNG') }}" alt="Standard Room">
 <a class="room-link" href="#simple-info">Read More</a>
+
 <h3>Executive Room</h3>
 <img src="{{ url_for('static', filename='Executive.PNG') }}" alt="Executive Room">
+<a class="room-link" href="#executive-info">Read More</a>
+
 <h3>Deluxe Suite</h3>
 <img src="{{ url_for('static', filename='Delux.PNG') }}" alt="Deluxe Room">
 <a class="room-link" href="#deluxe-info">Read More</a>
+
+<h3>Penthouse</h3>
+<img src="{{ url_for('static', filename='Penthouse.PNG') }}" alt="Penthouse">
+<a class="room-link" href="#penthouse-info">Read More</a>
+
+<h3>Studio Cottage</h3>
+<img src="{{ url_for('static', filename='Studiocottage.PNG') }}" alt="Studio Cottage">
+<a class="room-link" href="#studio-info">Read More</a>
+
+<h3>Barbeque Villa</h3>
+<img src="{{ url_for('static', filename='Barbeque.PNG') }}" alt="Barbeque Villa">
+<a class="room-link" href="#barbeque-info">Read More</a>
+
 </section>
+
 <section id="simple-info">
 <h2>Simple Room Details</h2>
 <p>The Simple Room is perfect for budget travelers. It includes a single bed, clean bathroom, and basic furniture. Suitable for solo guests or short stays. Includes fan, attached bathroom, and housekeeping.</p>
 </section>
+
 <section id="executive-info">
 <h2>Executive Room Details</h2>
 <p>The Executive Room offers a comfortable queen-sized bed, air conditioning, LCD TV, working desk, and premium bathroom. Ideal for business travelers and couples.</p>
 </section>
+
 <section id="deluxe-info">
 <h2>Deluxe Suite Details</h2>
 <p>The Deluxe Suite is a luxury stay option featuring a king-sized bed, sofa set, balcony view, mini-fridge, wardrobe, and 24/7 service. Perfect for long stays or families.</p>
 </section>
 
+<section id="penthouse-info">
+<h2>Penthouse Details</h2>
+<p>Our Penthouse offers top-floor luxury with panoramic views, a private terrace, modern interiors, and exclusive services. It includes a large living area, king bed, jacuzzi, and complimentary breakfast.</p>
+</section>
+
+<section id="studio-info">
+<h2>Studio Cottage Details</h2>
+<p>The Studio Cottage is designed for peaceful stays with cozy interiors, a private entrance, kitchenette, and garden view. Ideal for couples or writers seeking solitude and comfort.</p>
+</section>
+
+<section id="barbeque-info">
+<h2>Barbeque Villa Details</h2>
+<p>Enjoy outdoor dining and relaxation in our Barbeque Villa, which includes a private lawn, in-villa grill setup, seating space, and full access to guest house services. Best for families and group stays.</p>
+</section>
+
 <div class="registration">
 <strong>Registration:</strong>
-<a <a href="{{ url_for('register') }}" target="_blank">Click Here to Book</a>
+<a href="{{ url_for('register') }}" target="_blank">Click Here to Book</a>
 </div>
 
 </body>
