@@ -1,184 +1,250 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<title>Guest House</title>
-<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Executive.PNG') }}">
-<style>
-body {
-margin: 0;
-font-family: Arial, sans-serif;
-background: lightblue;
-}
-.header {
-background-color: lightyellow;
-padding: 20px;
-border-radius: 10px;
-margin: 20px;
-box-shadow: 0 4px 8px gray;
-}
-.header h1 {
-margin: 0;
-font-size: 45px;
-color: blue;
-}
-.header h1 span {
-color: goldenrod;
-font-size: 25px;
-}
-.subheading {
-font-size: 25px;
-margin-top: 5px;
-color: darkgray;
-}
-.navbar {
-background-color: pink;
-padding: 10px;
-text-align: center;
-font-size: 18px;
-}
-.navbar a {
-color: black;
-text-decoration: none;
-margin: 0 10px;
-font-weight: bold;
-}
-.navbar a:hover {
-color: red;
-text-decoration: underline;
-}
-section {
-background-color: white;
-margin: 20px;
-padding: 20px;
-border-radius: 10px;
-box-shadow: 0 2px 5px lightgray;
-}
-h2, h3 {
-color: navy;
-}
-p {
-font-size: 16px;
-line-height: 1.6;
-}
-img {
-width: 100%;
-max-width: 500px;
-border-radius: 10px;
-margin: 10px 0;
-}
-.room-link {
-display: inline-block;
-margin-bottom: 20px;
-background-color: dodgerblue;
-color: white;
-padding: 10px 20px;
-border-radius: 5px;
-text-decoration: none;
-font-weight: bold;
-}
-.room-link:hover {
-background-color: blue;
-}
-hr {
-border: 0;
-height: 1px;
-background: gray;
-margin: 40px 0;
-}
-.registration {
-text-align: center;
-font-size: 20px;
-margin: 40px 0;
-}
-.registration a {
-color: darkred;
-text-decoration: none;
-font-weight: bold;
-}
-.registration a:hover {
-text-decoration: underline;
-}
-</style>
+  <title>Guest House</title>
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='Executive.PNG') }}">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: lightblue;
+    }
+
+    .header {
+      background-color: lightyellow;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px;
+      box-shadow: 0 4px 8px gray;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 45px;
+      color: blue;
+    }
+
+    .header h1 span {
+      color: goldenrod;
+      font-size: 25px;
+    }
+
+    .subheading {
+      font-size: 25px;
+      margin-top: 5px;
+      color: darkgray;
+    }
+
+    .navbar {
+      background-color: pink;
+      padding: 10px;
+      text-align: center;
+      font-size: 18px;
+    }
+
+    .navbar a {
+      color: black;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: bold;
+    }
+
+    .navbar a:hover {
+      color: red;
+      text-decoration: underline;
+    }
+
+    .room-heading-box {
+      background-color: pink;
+      color: black;
+      font-size: 18px;
+      text-align: center;
+      padding: 12px 0;
+      font-weight: bold;
+      width: 100%;
+      margin: 30px 0;
+    }
+
+    .room-heading-box h2 {
+      margin: 0;
+    }
+
+    section {
+      background-color: white;
+      margin: 20px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px lightgray;
+    }
+
+    h2, h3 {
+      color: navy;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    img {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 10px;
+      margin: 10px 0;
+    }
+
+    .room-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      background-color: dodgerblue;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .room-link:hover {
+      background-color: blue;
+    }
+
+    .room-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .room-gallery .room {
+      flex: 0 1 calc(50% - 60px);
+      text-align: center;
+    }
+
+    hr {
+      border: 0;
+      height: 1px;
+      background: gray;
+      margin: 40px 0;
+    }
+
+    .registration {
+      text-align: center;
+      font-size: 20px;
+      margin: 40px 0;
+    }
+
+    .registration a {
+      color: darkred;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .registration a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
+
 <div class="header">
-<h1><i>Raghav Guest House</i> <span>★★★</span></h1>
-<div class="subheading">Resort & Convention</div>
+  <h1><i>Raghav Guest House</i> <span>★★★</span></h1>
+  <div class="subheading">Resort & Convention</div>
 </div>
+
 <div class="navbar">
-<a href="#top">Home</a> |
-<a href="#about">About</a> |
-<a href="#rooms">Rooms</a> |
-<a href="#contact">Contact</a>
+  <a href="#top">Home</a> |
+  <a href="#about">About</a> |
+  <a href="#rooms">Rooms</a> |
+  <a href="#contact">Contact</a> |
+  <a href="{{ url_for('login') }}">Login</a>
 </div>
 
 <section id="about">
-<h2>About Our Rooms</h2>
-<p><strong>Raghav Guest House</strong> offers well-furnished and comfortable rooms designed for both leisure and business travelers. Every room is equipped with modern amenities to ensure a relaxing and productive stay.</p>
+  <h2>About Our Rooms</h2>
+  <p><strong>Raghav Guest House</strong> offers well-furnished and comfortable rooms designed for both leisure and business travelers. Every room is equipped with modern amenities to ensure a relaxing and productive stay.</p>
 </section>
 
+<!-- 🔻 Room Types Heading Div -->
+<div class="room-heading-box">
+  <h2>Room Types</h2>
+</div>
+
+<!-- 🔻 Room Gallery (3x2 layout) -->
 <section id="rooms">
-<h2>Room Types</h2>
+  <div class="room-gallery">
+    <div class="room">
+      <h3>Simple Room</h3>
+      <img src="{{ url_for('static', filename='Standard.PNG') }}" alt="Standard Room">
+      <a class="room-link" href="#simple-info">Read More</a>
+    </div>
 
-<h3>Simple Room</h3>
-<img src="{{ url_for('static', filename='Standard.PNG') }}" alt="Standard Room">
-<a class="room-link" href="#simple-info">Read More</a>
+    <div class="room">
+      <h3>Executive Room</h3>
+      <img src="{{ url_for('static', filename='Executive.PNG') }}" alt="Executive Room">
+      <a class="room-link" href="#executive-info">Read More</a>
+    </div>
 
-<h3>Executive Room</h3>
-<img src="{{ url_for('static', filename='Executive.PNG') }}" alt="Executive Room">
-<a class="room-link" href="#executive-info">Read More</a>
+    <div class="room">
+      <h3>Deluxe Suite</h3>
+      <img src="{{ url_for('static', filename='Delux.PNG') }}" alt="Deluxe Room">
+      <a class="room-link" href="#deluxe-info">Read More</a>
+    </div>
 
-<h3>Deluxe Suite</h3>
-<img src="{{ url_for('static', filename='Delux.PNG') }}" alt="Deluxe Room">
-<a class="room-link" href="#deluxe-info">Read More</a>
+    <div class="room">
+      <h3>Penthouse</h3>
+      <img src="{{ url_for('static', filename='Penthouse.PNG') }}" alt="Penthouse">
+      <a class="room-link" href="#penthouse-info">Read More</a>
+    </div>
 
-<h3>Penthouse</h3>
-<img src="{{ url_for('static', filename='Penthouse.PNG') }}" alt="Penthouse">
-<a class="room-link" href="#penthouse-info">Read More</a>
+    <div class="room">
+      <h3>Studio Cottage</h3>
+      <img src="{{ url_for('static', filename='Studiocottage.PNG') }}" alt="Studio Cottage">
+      <a class="room-link" href="#studio-info">Read More</a>
+    </div>
 
-<h3>Studio Cottage</h3>
-<img src="{{ url_for('static', filename='Studiocottage.PNG') }}" alt="Studio Cottage">
-<a class="room-link" href="#studio-info">Read More</a>
-
-<h3>Barbeque Villa</h3>
-<img src="{{ url_for('static', filename='Barbeque.PNG') }}" alt="Barbeque Villa">
-<a class="room-link" href="#barbeque-info">Read More</a>
-
+    <div class="room">
+      <h3>Barbeque Villa</h3>
+      <img src="{{ url_for('static', filename='Barbeque.PNG') }}" alt="Barbeque Villa">
+      <a class="room-link" href="#barbeque-info">Read More</a>
+    </div>
+  </div>
 </section>
 
+<!-- 🔻 Room Details Sections -->
 <section id="simple-info">
-<h2>Simple Room Details</h2>
-<p>The Simple Room is perfect for budget travelers. It includes a single bed, clean bathroom, and basic furniture. Suitable for solo guests or short stays. Includes fan, attached bathroom, and housekeeping.</p>
+  <h2>Simple Room Details</h2>
+  <p>The Simple Room is perfect for budget travelers. It includes a single bed, clean bathroom, and basic furniture. Suitable for solo guests or short stays. Includes fan, attached bathroom, and housekeeping.</p>
 </section>
 
 <section id="executive-info">
-<h2>Executive Room Details</h2>
-<p>The Executive Room offers a comfortable queen-sized bed, air conditioning, LCD TV, working desk, and premium bathroom. Ideal for business travelers and couples.</p>
+  <h2>Executive Room Details</h2>
+  <p>The Executive Room offers a comfortable queen-sized bed, air conditioning, LCD TV, working desk, and premium bathroom. Ideal for business travelers and couples.</p>
 </section>
 
 <section id="deluxe-info">
-<h2>Deluxe Suite Details</h2>
-<p>The Deluxe Suite is a luxury stay option featuring a king-sized bed, sofa set, balcony view, mini-fridge, wardrobe, and 24/7 service. Perfect for long stays or families.</p>
+  <h2>Deluxe Suite Details</h2>
+  <p>The Deluxe Suite is a luxury stay option featuring a king-sized bed, sofa set, balcony view, mini-fridge, wardrobe, and 24/7 service. Perfect for long stays or families.</p>
 </section>
 
 <section id="penthouse-info">
-<h2>Penthouse Details</h2>
-<p>Our Penthouse offers top-floor luxury with panoramic views, a private terrace, modern interiors, and exclusive services. It includes a large living area, king bed, jacuzzi, and complimentary breakfast.</p>
+  <h2>Penthouse Details</h2>
+  <p>Our Penthouse offers top-floor luxury with panoramic views, a private terrace, modern interiors, and exclusive services. It includes a large living area, king bed, jacuzzi, and complimentary breakfast.</p>
 </section>
 
 <section id="studio-info">
-<h2>Studio Cottage Details</h2>
-<p>The Studio Cottage is designed for peaceful stays with cozy interiors, a private entrance, kitchenette, and garden view. Ideal for couples or writers seeking solitude and comfort.</p>
+  <h2>Studio Cottage Details</h2>
+  <p>The Studio Cottage is designed for peaceful stays with cozy interiors, a private entrance, kitchenette, and garden view. Ideal for couples or writers seeking solitude and comfort.</p>
 </section>
 
 <section id="barbeque-info">
-<h2>Barbeque Villa Details</h2>
-<p>Enjoy outdoor dining and relaxation in our Barbeque Villa, which includes a private lawn, in-villa grill setup, seating space, and full access to guest house services. Best for families and group stays.</p>
+  <h2>Barbeque Villa Details</h2>
+  <p>Enjoy outdoor dining and relaxation in our Barbeque Villa, which includes a private lawn, in-villa grill setup, seating space, and full access to guest house services. Best for families and group stays.</p>
 </section>
 
 <div class="registration">
-<strong>Registration:</strong>
-<a href="{{ url_for('register') }}" target="_blank">Click Here to Book</a>
+  <strong>Registration:</strong>
+  <a href="{{ url_for('register') }}" target="_blank">Click Here to Book</a>
 </div>
 
 </body>

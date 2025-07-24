@@ -1,25 +1,42 @@
 ﻿from flask import Flask, render_template, request, url_for, redirect, session
 import mysql.connector
+import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-app.secret_key = 'mysecretkey123'  
+app.secret_key = 'mysecretkey123'
+
+# File upload configuration
+UPLOAD_FOLDER = 'static/uploads'
+ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def get_db_connection():
     return mysql.connector.connect(
         host="localhost",
         user="root",
-        password="",  
+        password="",
         database="guesthouse"
     )
 
+# Home page
 @app.route('/')
 def website():
     return render_template('website.html')
 
+# Registration page
 @app.route('/register')
 def register():
     return render_template('registration.html')
 
+# Handle registration form submission
 @app.route('/submit', methods=['POST'])
 def submit():
     name = request.form['name']
@@ -29,11 +46,25 @@ def submit():
     hobby = request.form['hobby']
     checkin = request.form['checkin']
     checkout = request.form['checkout']
+    
+    # Handle file upload
+    file = request.files['file']
+    filename = None
 
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(file_path)
+    else:
+        return "Invalid or missing file. Please upload PDF/JPG/PNG only."
+
+    # Insert into DB
     conn = get_db_connection()
     c = conn.cursor()
-    c.execute("INSERT INTO bookings (name, email, phone, gender, hobby, checkin, checkout) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-              (name, email, phone, gender, hobby, checkin, checkout))
+    c.execute("""
+        INSERT INTO bookings (name, email, phone, gender, hobby, checkin, checkout, document)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+    """, (name, email, phone, gender, hobby, checkin, checkout, filename))
     conn.commit()
     conn.close()
 
@@ -44,8 +75,10 @@ def submit():
                            gender=gender,
                            hobby=hobby,
                            checkin=checkin,
-                           checkout=checkout)
+                           checkout=checkout,
+                           document=filename)
 
+# Admin login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -60,6 +93,7 @@ def login():
 
     return render_template('login.html')
 
+# Admin dashboard
 @app.route('/view-bookings')
 def view_bookings():
     if not session.get('admin'):
@@ -72,7 +106,7 @@ def view_bookings():
     conn.close()
     return render_template('view_bookings.html', bookings=data)
 
-
+# Delete a booking
 @app.route('/delete/<int:id>')
 def delete_booking(id):
     if not session.get('admin'):
@@ -85,6 +119,7 @@ def delete_booking(id):
     conn.close()
     return redirect('/view-bookings')
 
+# Edit a booking
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])
 def edit_booking(id):
     if not session.get('admin'):
@@ -116,7 +151,7 @@ def edit_booking(id):
     conn.close()
     return render_template('edit_booking.html', booking=booking)
 
-
+# Admin logout
 @app.route('/logout')
 def logout():
     session.pop('admin', None)
